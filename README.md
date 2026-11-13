@@ -2,6 +2,8 @@
 
 An Astro template for a short intro and a list of notes. Named after the 1995 Boards of Canada EP.
 
+Demo: [twoism.pages.dev](https://twoism.pages.dev)
+
 ## Preview
 
 | Light | Dark |
