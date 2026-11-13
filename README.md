@@ -7,6 +7,11 @@
 
 An Astro template for a short intro and a list of notes. Named after the 1995 Boards of Canada EP.
 
+| Light | Dark |
+| --- | --- |
+| ![Home page in light mode](.github/assets/home-light.webp) | ![Home page in dark mode](.github/assets/home-dark.webp) |
+| ![A note in light mode](.github/assets/note-light.webp) | ![A note in dark mode](.github/assets/note-dark.webp) |
+
 ```sh
 bun create astro@latest --template esafev/twoism
 bun run dev
