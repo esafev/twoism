@@ -54,7 +54,7 @@ Images go into `src/content/notes/assets`. See `src/content/notes/formatting.mdx
 
 ## Font
 
-[JetBrains Mono](https://www.jetbrains.com/lp/mono/), licensed under the SIL Open Font License (`public/fonts/OFL.txt`). To use another font, replace the files in `public/fonts/` and update:
+[IBM Plex Mono](https://github.com/IBM/plex), licensed under the SIL Open Font License (`public/fonts/OFL.txt`). To use another font, replace the files in `public/fonts/` and update:
 
 - `@font-face` and `font-family` in `src/styles/global.css`
 - the preload in `src/components/Head.astro`

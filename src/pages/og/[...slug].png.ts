@@ -6,7 +6,7 @@ import sharp from 'sharp';
 import { SITE_DESCRIPTION, SITE_TITLE } from '@/consts';
 import { getNotes } from '@/lib/notes';
 
-const font = await readFile('public/fonts/JetBrainsMonoVariable.woff2');
+const font = await readFile('public/fonts/IBMPlexMono-Regular.woff2');
 
 export const getStaticPaths = (async () => {
   const notes = await getNotes();
@@ -35,7 +35,7 @@ export const GET: APIRoute = async ({ props }) => {
           padding: 80,
           background: '#0a2675',
           color: '#ddd8cc',
-          fontFamily: 'JetBrains Mono',
+          fontFamily: 'IBM Plex Mono',
         },
         children: [
           { type: 'div', props: { style: { fontSize: 64, lineHeight: 1.25 }, children: props.title } },
@@ -43,7 +43,7 @@ export const GET: APIRoute = async ({ props }) => {
         ],
       },
     },
-    { width: 1200, height: 630, fonts: [{ name: 'JetBrains Mono', data: font }] },
+    { width: 1200, height: 630, fonts: [{ name: 'IBM Plex Mono', data: font }] },
   );
 
   const png = await sharp(Buffer.from(svg)).png().toBuffer();
