@@ -10,4 +10,5 @@ export const PORTRAIT: { light: string; dark?: string } | undefined = {
 export const LINKS = [
   { label: 'Email', href: 'mailto:euan@example.com' },
   { label: 'GitHub', href: 'https://github.com/' },
+  { label: 'Last.fm', href: 'https://www.last.fm/' },
 ];
