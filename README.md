@@ -24,5 +24,3 @@ bun run note:create "Title" "Description"   # draft note
 bun run portrait:create photo.jpg           # dithered portrait, macOS
 bun run image:dither photo.jpg              # dithered image for a note
 ```
-
-MIT. IBM Plex Mono is under the OFL. The portrait is a fictional person, generated with AI.
