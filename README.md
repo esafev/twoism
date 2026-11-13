@@ -59,7 +59,7 @@ Images go into `src/content/notes/assets`. To dither one in the site's colors, l
 bun run image:dither src/content/notes/assets/photo.jpg
 ```
 
-This writes `photo-light.webp` and `photo-dark.webp` next to it. See `src/content/notes/music-is-math.mdx` for how to show them, and for everything else a note can contain.
+This writes `photo-light.webp` and `photo-dark.webp` next to it. Show them with the `DitheredImage` component, which keeps the dots sharp instead of re-encoding them like Astro's `<Image>`. See `src/content/notes/music-is-math.mdx` for an example and everything else a note can contain.
 
 ## Font
 
