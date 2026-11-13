@@ -1,78 +1,23 @@
+<picture>
+  <source srcset="public/portrait-dark.webp" media="(prefers-color-scheme: dark)">
+  <img src="public/portrait-light.webp" width="96" alt="">
+</picture>
+
 # Twoism
 
-A minimal Astro site: a short intro and a list of notes. Light and dark themes, RSS, a sitemap and generated Open Graph images.
-
-Named after the 1995 Boards of Canada EP.
-
-## Start
-
-Requires [Bun](https://bun.sh).
+An Astro template for a short intro and a list of notes. Named after the 1995 Boards of Canada EP.
 
 ```sh
 bun create astro@latest --template esafev/twoism
 bun run dev
 ```
 
-## Make it yours
-
-| What | Where |
-| --- | --- |
-| Name, description, site URL, footer links | `src/consts.ts` |
-| Home page text | `src/content/intro.mdx` |
-| Portrait | `PORTRAIT` in `src/consts.ts` |
-| Colors | `:root` in `src/styles/global.css`, the OG image colors in `src/pages/og/[...slug].png.ts`, the dithering colors in `scripts/lib/dither.ts` |
-| Favicon | `public/favicon.svg`, `public/favicon.ico` |
-| Font | see [Font](#font) |
-
-### Portrait
+Your name, links and site URL live in `src/consts.ts`, the intro in `src/content/intro.mdx`, notes in `src/content/notes`.
 
 ```sh
-bun run portrait:create path/to/photo.jpg
+bun run note:create "Title" "Description"   # draft note
+bun run portrait:create photo.jpg           # dithered portrait, macOS
+bun run image:dither photo.jpg              # dithered image for a note
 ```
 
-This turns a photo into a dithered portrait in the site's colors and writes `public/portrait-light.webp` and `public/portrait-dark.webp`. It removes the background with macOS's subject detection and crops around the head. On other systems, use a PNG with a transparent background.
-
-The portrait replaces the name at the top of the home page. To show the name instead, set `PORTRAIT` in `src/consts.ts` to `undefined`.
-
-The sample portrait shows a fictional person, generated with AI.
-
-## Notes
-
-```sh
-bun run note:create "A title" "A short description"
-```
-
-This creates a draft in `src/content/notes`. Frontmatter:
-
-| Field | |
-| --- | --- |
-| `title` | |
-| `description` | Meta description and RSS summary |
-| `pubDate` | |
-| `updatedDate` | Optional, shown after the date |
-| `slug` | The URL: `/notes/<slug>/` |
-| `published` | Drafts (`false`) appear only in `bun run dev` |
-
-Images go into `src/content/notes/assets`. To dither one in the site's colors, like the portrait:
-
-```sh
-bun run image:dither src/content/notes/assets/photo.jpg
-```
-
-This writes `photo-light.webp` and `photo-dark.webp` next to it. Show them with the `DitheredImage` component, which keeps the dots sharp instead of re-encoding them like Astro's `<Image>`. See `src/content/notes/music-is-math.mdx` for an example and everything else a note can contain.
-
-## Font
-
-[IBM Plex Mono](https://github.com/IBM/plex), licensed under the SIL Open Font License (`public/fonts/OFL.txt`). To use another font, replace the files in `public/fonts/` and update:
-
-- `@font-face` and `font-family` in `src/styles/global.css`
-- the preload in `src/components/Head.astro`
-- the font file and name in `src/pages/og/[...slug].png.ts`
-
-## Deploy
-
-`bun run build` type-checks and writes a static site to `dist/`, which any static host can serve.
-
-## License
-
-Code: MIT. Font: SIL Open Font License 1.1.
+MIT. IBM Plex Mono is under the OFL. The portrait is a fictional person, generated with AI.
