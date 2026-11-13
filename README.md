@@ -1,8 +1,3 @@
-<picture>
-  <source srcset="public/portrait-dark.webp" media="(prefers-color-scheme: dark)">
-  <img src="public/portrait-light.webp" width="96" alt="">
-</picture>
-
 # Twoism
 
 An Astro template for a short intro and a list of notes. Named after the 1995 Boards of Canada EP.
