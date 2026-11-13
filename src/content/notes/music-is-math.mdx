@@ -7,8 +7,8 @@ slug: music-is-math
 published: true
 ---
 
-import { Image } from 'astro:assets';
-import hills from './assets/hills.jpg';
+import hillsLight from './assets/hills-light.webp';
+import hillsDark from './assets/hills-dark.webp';
 
 Notes are written in [MDX](https://mdxjs.com), Markdown with components. Text can be _italic_, **bold** or `inline code`.
 
@@ -37,9 +37,12 @@ function fibonacci(n: number): number {
 }
 ```
 
-Images go into `src/content/notes/assets` and are optimized at build time:
+Images go into `src/content/notes/assets`. This one is dithered with `bun run image:dither`, a light and a dark version:
 
 <figure>
-  <Image src={hills} alt="Rolling hills under a hazy low sun" width="1200" />
+  <picture>
+    <source srcset={hillsDark.src} media="(prefers-color-scheme: dark)" />
+    <img src={hillsLight.src} alt="Rolling hills under a hazy low sun" width={hillsLight.width} height={hillsLight.height} />
+  </picture>
   <figcaption>In a beautiful place out in the country.</figcaption>
 </figure>

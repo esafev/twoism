@@ -20,7 +20,7 @@ bun run dev
 | Name, description, site URL, footer links | `src/consts.ts` |
 | Home page text | `src/content/intro.mdx` |
 | Portrait | `PORTRAIT` in `src/consts.ts` |
-| Colors | `:root` in `src/styles/global.css`, the OG image colors in `src/pages/og/[...slug].png.ts`, the portrait colors in `scripts/create-portrait.ts` |
+| Colors | `:root` in `src/styles/global.css`, the OG image colors in `src/pages/og/[...slug].png.ts`, the dithering colors in `scripts/lib/dither.ts` |
 | Favicon | `public/favicon.svg`, `public/favicon.ico` |
 | Font | see [Font](#font) |
 
@@ -53,7 +53,13 @@ This creates a draft in `src/content/notes`. Frontmatter:
 | `slug` | The URL: `/notes/<slug>/` |
 | `published` | Drafts (`false`) appear only in `bun run dev` |
 
-Images go into `src/content/notes/assets`. See `src/content/notes/music-is-math.mdx` for images and everything else a note can contain.
+Images go into `src/content/notes/assets`. To dither one in the site's colors, like the portrait:
+
+```sh
+bun run image:dither src/content/notes/assets/photo.jpg
+```
+
+This writes `photo-light.webp` and `photo-dark.webp` next to it. See `src/content/notes/music-is-math.mdx` for how to show them, and for everything else a note can contain.
 
 ## Font
 

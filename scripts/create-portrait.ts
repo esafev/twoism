@@ -1,8 +1,10 @@
 import { $ } from 'bun';
 import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { join, relative } from 'node:path';
 import sharp from 'sharp';
+
+import { dither } from './lib/dither';
 
 type Region = { left: number; top: number; width: number; height: number };
 type Face = { x: number; y: number; width: number; height: number };
@@ -12,12 +14,6 @@ const SCALE = 3;
 const FACE_SCALE = 2.1;
 const HEAD_SCALE = 1.3;
 const HEADROOM = 0.08;
-const NEIGHBORS = [[1, 0], [2, 0], [-1, 1], [0, 1], [1, 1], [0, 2]];
-
-const STYLES = [
-  { file: 'portrait-light.webp', ink: [82, 96, 119], amount: (brightness: number) => 0.08 + 0.92 * (1 - brightness) ** 0.8 },
-  { file: 'portrait-dark.webp', ink: [159, 176, 224], amount: (brightness: number) => 0.08 + 0.55 * brightness },
-];
 
 const VISION = `
 ObjC.import('Vision');
@@ -82,34 +78,6 @@ async function frame(mask: string, face: Face | null): Promise<Region> {
   };
 }
 
-function atkinson(amounts: Float32Array, inside: Uint8Array): Uint8Array {
-  const values = amounts.slice();
-  const ink = new Uint8Array(values.length);
-  for (let y = 0; y < SIZE; y++) {
-    for (let x = 0; x < SIZE; x++) {
-      const i = y * SIZE + x;
-      if (!inside[i]) continue;
-      ink[i] = values[i] >= 0.5 ? 1 : 0;
-      const error = (values[i] - ink[i]) / 8;
-      for (const [dx, dy] of NEIGHBORS) {
-        const nx = x + dx;
-        const ny = y + dy;
-        if (nx >= 0 && nx < SIZE && ny < SIZE) values[ny * SIZE + nx] += error;
-      }
-    }
-  }
-  return ink;
-}
-
-async function render(ink: Uint8Array, [r, g, b]: number[], path: string) {
-  const pixels = new Uint8Array(SIZE * SIZE * 4);
-  ink.forEach((on, i) => on && pixels.set([r, g, b, 255], i * 4));
-  await sharp(pixels, { raw: { width: SIZE, height: SIZE, channels: 4 } })
-    .resize(SIZE * SCALE, SIZE * SCALE, { kernel: 'nearest' })
-    .webp({ lossless: true })
-    .toFile(path);
-}
-
 async function createPortrait(input: string, dir: string) {
   const photo = join(dir, 'photo.png');
   const mask = join(dir, 'mask.png');
@@ -124,16 +92,8 @@ async function createPortrait(input: string, dir: string) {
   const alpha = await sharp(mask).extract(region).resize(SIZE, SIZE).grayscale().raw().toBuffer();
   const inside = Uint8Array.from(alpha, (value) => (value >= 128 ? 1 : 0));
 
-  const tones = gray.filter((_, i) => inside[i]).sort();
-  const low = tones[Math.floor(tones.length * 0.02)];
-  const high = tones[Math.floor(tones.length * 0.98)];
-  const brightness = Float32Array.from(gray, (value) => clamp((value - low) / Math.max(high - low, 1), 0, 1));
-
-  for (const { file, ink, amount } of STYLES) {
-    const path = join(import.meta.dir, '..', 'public', file);
-    await render(atkinson(brightness.map(amount), inside), ink, path);
-    console.log(`Created public/${file}`);
-  }
+  const paths = await dither({ gray, inside, width: SIZE, height: SIZE }, SCALE, (style) => join(import.meta.dir, '..', 'public', `portrait-${style}.webp`));
+  for (const path of paths) console.log(`Created ${relative(process.cwd(), path)}`);
 }
 
 const [input] = Bun.argv.slice(2);
