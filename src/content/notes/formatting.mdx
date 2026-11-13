@@ -1,0 +1,44 @@
+---
+title: Formatting
+pubDate: 2026-01-15T10:00:00Z
+updatedDate: 2026-02-01T10:00:00Z
+description: Everything a note can contain
+slug: formatting
+published: true
+---
+
+import { Image } from 'astro:assets';
+import sample from './assets/sample.jpg';
+
+Notes are written in [MDX](https://mdxjs.com), Markdown with components. Text can be _italic_, **bold** or `inline code`.
+
+## Second-level heading
+
+### Third-level heading
+
+> A blockquote, for quotes and asides.
+
+Lists:
+
+1. An ordered list
+2. Its second item
+
+Tasks:
+
+- [x] A finished task
+- [ ] An open one
+
+Code blocks are highlighted at build time:
+
+```ts
+function greet(name: string): string {
+  return `Hello, ${name}`;
+}
+```
+
+Images go into `src/content/notes/assets` and are optimized at build time:
+
+<figure>
+  <Image src={sample} alt="A gradient from light blue to dark blue" width="1200" />
+  <figcaption>A caption under the image.</figcaption>
+</figure>

@@ -1,0 +1,85 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+import NoteHeader from '@/components/NoteHeader.astro';
+import NoteNav from '@/components/NoteNav.astro';
+
+const {
+  frontmatter: { title, description, pubDate, updatedDate },
+  image,
+  prev,
+  next,
+} = Astro.props;
+---
+
+<BaseLayout headProps={{ title, description, image }}>
+  <NoteHeader {title} {pubDate} {updatedDate} />
+
+  <article>
+    <slot />
+  </article>
+
+  <NoteNav {prev} {next} />
+</BaseLayout>
+
+<style>
+  article {
+    :global(p, h2, h3) {
+      margin-block: 1em;
+    }
+
+    :global(h2) {
+      font-size: 1.3em;
+    }
+
+    :global(h3) {
+      font-size: 1.1em;
+    }
+
+    :global(img) {
+      width: 100%;
+      height: auto;
+    }
+
+    :global(figcaption) {
+      color: var(--theme-sub-text);
+      font-size: 0.9em;
+      line-height: 1.4;
+    }
+
+    :global(blockquote) {
+      display: flex;
+      flex-direction: column;
+      padding-inline-start: 1em;
+
+      border-inline-start: 4px solid var(--theme-code-block);
+    }
+
+    :global(code) {
+      padding: 0.2rem 0.33rem;
+      margin-inline: -0.125em;
+      border-radius: 3px;
+
+      font-size: 0.85em;
+      overflow-wrap: anywhere;
+
+      background-color: var(--theme-code-block);
+    }
+
+    :global(pre) {
+      --padding-inline: 2rem;
+      padding: 1rem var(--padding-inline);
+      padding-inline-end: calc(var(--padding-inline) * 2);
+      overflow: auto hidden;
+
+      @media (width >= 37.75em) {
+        --padding-inline: 1.25rem;
+        border-radius: 8px;
+      }
+    }
+
+    :global(pre > code) {
+      all: unset;
+    }
+  }
+</style>

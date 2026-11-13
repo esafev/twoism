@@ -1,0 +1,35 @@
+---
+import { SITE_TITLE } from '@/consts';
+
+export interface Props {
+  light: string;
+  dark?: string;
+}
+
+const { light, dark } = Astro.props;
+---
+
+<a href='/'>
+  <picture>
+    {dark && <source srcset={dark} media='(prefers-color-scheme: dark)' />}
+    <img src={light} alt={SITE_TITLE} width='96' height='96' />
+  </picture>
+</a>
+
+<style>
+  a {
+    display: inline-block;
+    vertical-align: top;
+
+    &:focus-visible {
+      background: none;
+      box-shadow: none;
+      outline: 2px solid var(--theme-text);
+      outline-offset: 4px;
+    }
+  }
+
+  img {
+    display: block;
+  }
+</style>
