@@ -11,7 +11,7 @@ type Face = { x: number; y: number; width: number; height: number };
 
 const SIZE = 192;
 const SCALE = 3;
-const FACE_SCALE = 2.1;
+const FACE_SCALE = 2.9;
 const HEAD_SCALE = 1.3;
 const HEADROOM = 0.08;
 
