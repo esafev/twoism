@@ -18,20 +18,21 @@ bun run dev
 | Name, description, site URL, footer links | `src/consts.ts` |
 | Home page text | `src/content/intro.mdx` |
 | Portrait | `PORTRAIT` in `src/consts.ts` |
-| Colors | `:root` in `src/styles/global.css`, and the OG image colors in `src/pages/og/[...slug].png.ts` |
+| Colors | `:root` in `src/styles/global.css`, the OG image colors in `src/pages/og/[...slug].png.ts`, the portrait colors in `scripts/create-portrait.ts` |
 | Favicon | `public/favicon.svg`, `public/favicon.ico` |
 | Font | see [Font](#font) |
 
 ### Portrait
 
-Put a square image into `public/` and point `PORTRAIT` at it. It replaces the name at the top of the home page, at 96×96. `dark` is optional and is used in dark mode.
-
-```ts
-export const PORTRAIT: { light: string; dark?: string } | undefined = {
-  light: '/portrait.webp',
-  dark: '/portrait-dark.webp',
-};
+```sh
+bun run portrait:create path/to/photo.jpg
 ```
+
+This turns a photo into a dithered portrait in the site's colors and writes `public/portrait-light.webp` and `public/portrait-dark.webp`. It removes the background with macOS's subject detection and crops around the head. On other systems, use a PNG with a transparent background.
+
+The portrait replaces the name at the top of the home page. To show the name instead, set `PORTRAIT` in `src/consts.ts` to `undefined`.
+
+The sample portrait shows a fictional person, generated with AI.
 
 ## Notes
 
