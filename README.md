@@ -2,6 +2,8 @@
 
 A minimal Astro site: a short intro and a list of notes. Light and dark themes, RSS, a sitemap and generated Open Graph images.
 
+Named after the 1995 Boards of Canada EP.
+
 ## Start
 
 Requires [Bun](https://bun.sh).
@@ -51,7 +53,7 @@ This creates a draft in `src/content/notes`. Frontmatter:
 | `slug` | The URL: `/notes/<slug>/` |
 | `published` | Drafts (`false`) appear only in `bun run dev` |
 
-Images go into `src/content/notes/assets`. See `src/content/notes/formatting.mdx` for images and everything else a note can contain.
+Images go into `src/content/notes/assets`. See `src/content/notes/music-is-math.mdx` for images and everything else a note can contain.
 
 ## Font
 

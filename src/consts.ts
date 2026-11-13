@@ -1,5 +1,5 @@
-export const SITE_TITLE = 'Your Name';
-export const SITE_DESCRIPTION = 'Notes on whatever I am thinking through';
+export const SITE_TITLE = 'Euan Muir';
+export const SITE_DESCRIPTION = 'Notes from a beautiful place out in the country';
 export const SITE_URL = 'https://example.com';
 
 export const PORTRAIT: { light: string; dark?: string } | undefined = {
@@ -8,6 +8,6 @@ export const PORTRAIT: { light: string; dark?: string } | undefined = {
 };
 
 export const LINKS = [
-  { label: 'Email', href: 'mailto:you@example.com' },
+  { label: 'Email', href: 'mailto:euan@example.com' },
   { label: 'GitHub', href: 'https://github.com/' },
 ];
